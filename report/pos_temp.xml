@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="action_profit_pos_report"
+                string="Profit Pos Report"
+                model="pos.report"
+                report_type="qweb-pdf"
+                file="profit_pos_report.pos_report_temp"
+                name="profit_pos_report.pos_report_temp"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="profit_pos_report_form_view" model="ir.ui.view">
+            <field name="name">pos.report.form.view</field>
+            <field name="model">pos.report</field>
+            <field name="arch" type="xml">
+                <form string="Profit PoS Report">
+                    <group>
+                        <group>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="type_report"/>
+                    </group>
+
+                    <footer>
+                        <button name="print_profit_pos_report" string="Print Report" class="oe_highlight"
+                                type="object"/>
+                        Or
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+
+
+            </field>
+        </record>
+
+        <record id="action_profit_pos_report_wizard" model="ir.actions.act_window">
+            <field name="name">Profit PoS Report</field>
+            <field name="res_model">pos.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_pos_report_wizard"
+                  name="Profit PoS Report"
+                  action="action_profit_pos_report_wizard"
+                  parent="point_of_sale.menu_point_rep" 
+                  sequence="99"/>
+
+    </data>
+</odoo>
