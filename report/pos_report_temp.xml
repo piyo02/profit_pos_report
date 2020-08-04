@@ -73,6 +73,7 @@
                                 <tr>
                                     <td><b>Total Transaksi</b></td>
                                     <td class="text-right">
+                                        <t t-set="total_amount" t-value="total_amount + session[9]"/>
                                         <span t-esc="'{:,.2f}'.format(session[9])"/>
                                     </td>
                                 </tr>
