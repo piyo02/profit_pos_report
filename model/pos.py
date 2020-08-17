@@ -37,17 +37,33 @@ class ProfitPoSReport(models.TransientModel):
 
             total_hpp_transaction = 0
             for transaction in transactions:
-                hpp_product = 0
+                total_hpp_product = 0
                 trans_data = []
                 trans_line = []
 
                 for line in transaction.lines:
                     lines = []
                     modal = line.product_id.product_tmpl_id.standard_price
+                    
+                    uom = line.uom_id.name
+
+                    if(line.product_id.product_tmpl_id.uom_id.factor):
+                        ratio_uom = line.product_id.product_tmpl_id.uom_id.factor
+                    else:
+                        ratio_uom = 1
+                    
+                    purchase_uom = line.product_id.product_tmpl_id.uom_po_id.factor_inv
                     qty = line.qty
-                    hpp_product += modal*qty
+                    if(uom == ""):
+                        hpp_product = modal*qty*ratio_uom*purchase_uom
+                    else:
+                        hpp_product = modal*qty
+                        uom = line.product_id.product_tmpl_id.uom_id.name
+                    
+                    total_hpp_product += hpp_product
 
                     lines.append(line.product_id.name)
+                    lines.append(uom)
                     lines.append(qty)
                     lines.append(line.discount)
                     lines.append(line.price_subtotal_incl)
@@ -55,13 +71,15 @@ class ProfitPoSReport(models.TransientModel):
                     trans_line.append(lines)
 
                 amount_total = transaction.amount_total
-                hpp_transaction = amount_total - hpp_product
+                hpp_transaction = total_hpp_product
+                margin_transaction = amount_total - total_hpp_product
 
                 if self.type_report == 'detail':
                     trans_data.append(transaction.pos_reference)
                     trans_data.append(trans_line)
                     trans_data.append(amount_total)
                     trans_data.append(hpp_transaction)
+                    trans_data.append(margin_transaction)
             
                 temp_trans.append(trans_data)
 

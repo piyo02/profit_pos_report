@@ -99,10 +99,12 @@
                                     <table class="table table-condensed table-striped">
                                         <thead>
                                             <th>Produk</th>
+                                            <th>Uom</th>
                                             <th>Qty</th>
                                             <th class="text-right">Diskon</th>
                                             <th class="text-right">Subtotal</th>
                                             <th class="text-right">HPP</th>
+                                            <th class="text-right">Margin</th>
                                         </thead>
                                         <tbody>
                                             <t t-foreach="transaction[1]" t-as="line">
@@ -117,21 +119,30 @@
                                                         <span t-esc="line[2]"/>
                                                     </td>
                                                     <td class="text-right">
-                                                        <span t-esc="'{:,.2f}'.format(line[3])"/>
+                                                        <span t-esc="line[3]"/>
                                                     </td>
                                                     <td class="text-right">
                                                         <span t-esc="'{:,.2f}'.format(line[4])"/>
                                                     </td>
+                                                    <td class="text-right">
+                                                        <span t-esc="'{:,.2f}'.format(line[5])"/>
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <span t-esc="'{:,.2f}'.format(line[4]-line[5])"/>
+                                                    </td>
                                                 </tr>
                                             </t>
                                             <tr>
-                                                <td colspan="2"></td>
+                                                <td colspan="3"></td>
                                                 <td class="text-right"><b>Total</b></td>
                                                 <td class="text-right">
                                                     <span t-esc="'{:,.2f}'.format(transaction[2])"/>
                                                 </td>
                                                 <td class="text-right">
                                                     <span t-esc="'{:,.2f}'.format(transaction[3])"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="'{:,.2f}'.format(transaction[4])"/>
                                                 </td>
                                             </tr>
                                         </tbody>
