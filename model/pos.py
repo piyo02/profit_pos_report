@@ -6,8 +6,8 @@ _logger = logging.getLogger(__name__)
 class ProfitPoSReport(models.TransientModel):
     _name = 'pos.report'
 
-    start_date = fields.Date("Start Date", required=True)
-    end_date = fields.Date("End Date", required=True)
+    start_date = fields.Date("Start Date", required=True) 
+    end_date = fields.Date("End Date", required=True) 
     type_report = fields.Selection(
         [('detail', 'PoS Profit Detail'), ('summary','PoS Profit Rekap')], 
         string="Tipe Report",
@@ -42,19 +42,16 @@ class ProfitPoSReport(models.TransientModel):
                 trans_line = []
 
                 for line in transaction.lines:
+                    
                     lines = []
                     modal = line.product_id.product_tmpl_id.standard_price
                     
                     uom = line.uom_id.name
+                    ratio_uom = line.product_id.product_tmpl_id.uom_id.factor
 
-                    if(line.product_id.product_tmpl_id.uom_id.factor):
-                        ratio_uom = line.product_id.product_tmpl_id.uom_id.factor
-                    else:
-                        ratio_uom = 1
-                    
-                    purchase_uom = line.product_id.product_tmpl_id.uom_po_id.factor_inv
+                    purchase_uom = line.uom_id.factor_inv
                     qty = line.qty
-                    if(uom == ""):
+                    if(uom != False):
                         hpp_product = modal*qty*ratio_uom*purchase_uom
                     else:
                         hpp_product = modal*qty
