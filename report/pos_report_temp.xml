@@ -52,19 +52,19 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Bank Mandiri</td>
+                                    <td>BRI</td>
                                     <td class="text-right">
                                         <span t-esc="'{:,.2f}'.format(session[6])"/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>BRI</td>
+                                    <td>Bank Mandiri</td>
                                     <td class="text-right">
                                         <span t-esc="'{:,.2f}'.format(session[7])"/>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Bank Permata</td>
+                                    <td>Bank Central Asia</td>
                                     <td class="text-right">
                                         <span t-esc="'{:,.2f}'.format(session[8])"/>
                                     </td>
